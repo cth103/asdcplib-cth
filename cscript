@@ -1,0 +1,6 @@
+
+def build(target, options):
+    cmd = './configure --prefix=%s ' % target.directory
+    target.command(cmd)
+    target.command('make -j8 V=1')
+    target.command('make install')
