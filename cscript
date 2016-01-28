@@ -1,6 +1,7 @@
 
 def build(target, options):
-    cmd = 'LIBS="-lboost_system -lboost_filesystem" ./configure --prefix=%s ' % target.directory
+    cmd = './configure --prefix=%s ' % target.directory
+    target.set('LIBS', "-lboost_system -lboost_filesystem")
     target.command(cmd)
     target.command('make -j8 V=1')
     target.command('make install')
