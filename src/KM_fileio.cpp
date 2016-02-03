@@ -969,7 +969,6 @@ Kumu::FileWriter::OpenWrite(const std::string& filename)
 Kumu::Result_t
 Kumu::FileWriter::OpenModify(const std::string& filename)
 {
-  KM_TEST_NULL_STR_L(filename);
   m_Filename = filename;
 
   // suppress popup window on error
