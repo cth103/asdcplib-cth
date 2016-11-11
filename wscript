@@ -5,7 +5,7 @@ import distutils.spawn
 from waflib import Logs
 
 APPNAME = 'libasdcp-cth'
-VERSION = '0.1.3'
+VERSION = '0.1.3devel'
 
 def options(opt):
     opt.load('compiler_cxx')
