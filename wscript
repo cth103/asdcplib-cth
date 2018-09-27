@@ -7,13 +7,15 @@ from waflib import Logs
 
 APPNAME = 'libasdcp-cth'
 
-this_version = subprocess.Popen(shlex.split('git tag -l --points-at HEAD'), stdout=subprocess.PIPE).communicate()[0]
-last_version = subprocess.Popen(shlex.split('git describe --tags --abbrev=0'), stdout=subprocess.PIPE).communicate()[0]
-
-if this_version == '':
-    VERSION = '%sdevel' % last_version[1:].strip()
+if os.path.exists('.git'):
+    this_version = subprocess.Popen(shlex.split('git tag -l --points-at HEAD'), stdout=subprocess.PIPE).communicate()[0]
+    last_version = subprocess.Popen(shlex.split('git describe --tags --abbrev=0'), stdout=subprocess.PIPE).communicate()[0]
+    if this_version == '':
+        VERSION = '%sdevel' % last_version[1:].strip()
+    else:
+        VERSION = this_version[1:].strip()
 else:
-    VERSION = this_version[1:].strip()
+    VERSION = open('VERSION').read().strip()
 
 def options(opt):
     opt.load('compiler_cxx')
@@ -101,3 +103,8 @@ def post(ctx):
 
 def tags(bld):
     os.system('etags src/*.cc src/*.h')
+
+def dist(bld):
+    f = open('VERSION', 'w')
+    print>>f,VERSION
+    f.close()
